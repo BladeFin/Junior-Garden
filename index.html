@@ -1,14 +1,13 @@
 <body>
 <p>changed height to 1k</p>
 <iframe frameborder="0" width="100%" height="1000px" src="https://replit.com/@Ironbrodiet/Inconspicuous-Browser?embed=true"></iframe>
+<iframe src="/examples/html/hello.html" name="myFrame" id = "asdf2", width="100%"></iframe>
+<br>
 <input type="text" id = "inp"></input>
-<iframe src="/examples/html/hello.html" name="myFrame"></iframe>
-    <p><a href="https://youtube.com/embed/bE4fboLfMnc" target="myFrame" id="asdf">Open TutorialRepublic.com</a></p>
-  <button id="butt" onclick="functionA()">Confirm</button>
+<button id="butt" onclick="functionA()">Confirm</button>
 </body>
 <script>
     function functionA() {
-  	  document.getElementById("asdf").setAttribute("href",document.getElementById("inp").innerHTML);
-      document.getElementById("asdf").contentWindow.location.reload();
+        document.getElementById("asdf2").setAttribute("src",document.getElementById("inp").value);
     }
 </script>
