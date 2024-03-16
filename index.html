@@ -1,24 +1,146 @@
-<body>
-<p>For CC:</p>
-<iframe src="/examples/html/hello.html" name="myFrame" id = "asdf2" width="1120" height="630" allowFullScreen allow="autoplay; picture-in-picture;">
-</iframe>
-<br>
-<input type="text" id = "inp" size = "50"></input> <button id="butt" onclick="functionA()">Confirm</button>
-<br>
-<p><b>Instructions for use:</b></p>
-<p>1) Get youtube link.                   Ex: https://www.youtube.com/watch?v=JnVeFWsyoEI</p>
-<p>2) Paste link in input box above
-<p>3) Replace 'watch?v=' with 'embed/'    Ex: https://www.youtube.com/embed/JnVeFWsyoEI</p>
-<p>4) Click Confirm </p>
-<p>Please note, this is meant to be watched in full screen, not in the little box.  Do what you want, though.</p>
-<br>
-<p>General Browser:</p>
-<p>changed height to 1k</p>
-<iframe frameborder="0" width="100%" height="1000px" src="https://replit.com/@Ironbrodiet/Inconspicuous-Browser?embed=true"></iframe>
-<a href="reel.html" title="Reel">Reel</a>
-</body>
-<script>
-    function functionA() {
-        document.getElementById("asdf2").setAttribute("src",document.getElementById("inp").value);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full Page Slideshow</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
     }
-</script>
+    #slideshow-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #slideshow {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .slide {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .thumbnails-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .thumbnails {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .thumbnail {
+      width: 50px;
+      height: 50px;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .arrow-container {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .arrow {
+      color: white;
+      background-color: black;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .arrow-left {
+      left: 10px;
+    }
+    .arrow-right {
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="slideshow-container">
+    <div id="slideshow">
+      <img class="slide" src="image1.jpg" alt="Slide 1">
+      <img class="slide" src="image2.jpg" alt="Slide 2">
+      <img class="slide" src="image3.jpg" alt="Slide 3">
+      <img class="slide" src="image4.jpg" alt="Slide 4">
+      <img class="slide" src="image5.jpg" alt="Slide 5">
+      <img class="slide" src="image6.jpg" alt="Slide 6">
+      <img class="slide" src="image7.jpg" alt="Slide 7">
+      <img class="slide" src="image8.jpg" alt="Slide 8">
+      <img class="slide" src="image9.jpg" alt="Slide 9">
+      <img class="slide" src="image10.jpg" alt="Slide 10">
+    </div>
+    <div class="arrow-container arrow-left" onclick="plusSlides(-1)">
+      <div class="arrow">&#10094;</div>
+    </div>
+    <div class="arrow-container arrow-right" onclick="plusSlides(1)">
+      <div class="arrow">&#10095;</div>
+    </div>
+  </div>
+  <div class="thumbnails-container">
+    <div class="thumbnails">
+      <div class="thumbnail" onclick="currentSlide(1)"><img src="image1.jpg" alt="Thumbnail 1"></div>
+      <div class="thumbnail" onclick="currentSlide(2)"><img src="image2.jpg" alt="Thumbnail 2"></div>
+      <div class="thumbnail" onclick="currentSlide(3)"><img src="image3.jpg" alt="Thumbnail 3"></div>
+      <div class="thumbnail" onclick="currentSlide(4)"><img src="image4.jpg" alt="Thumbnail 4"></div>
+      <div class="thumbnail" onclick="currentSlide(5)"><img src="image5.jpg" alt="Thumbnail 5"></div>
+      <div class="thumbnail" onclick="currentSlide(6)"><img src="image6.jpg" alt="Thumbnail 6"></div>
+      <div class="thumbnail" onclick="currentSlide(7)"><img src="image7.jpg" alt="Thumbnail 7"></div>
+      <div class="thumbnail" onclick="currentSlide(7)"><img src="image8.jpg" alt="Thumbnail 8"></div>
+      <div class="thumbnail" onclick="currentSlide(7)"><img src="image9.jpg" alt="Thumbnail 9"></div>
+      <div class="thumbnail" onclick="currentSlide(7)"><img src="image10.jpg" alt="Thumbnail 10"></div>
+    </div>
+  </div>
+  
+  <script>
+    let slideIndex = 1;
+    showSlide(slideIndex);
+
+    function plusSlides(n) {
+      showSlide(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+      showSlide(slideIndex = n);
+    }
+
+    function showSlide(n) {
+      const slides = document.getElementsByClassName("slide");
+      const thumbnails = document.getElementsByClassName("thumbnail");
+      if (n > slides.length) slideIndex = 1;
+      if (n < 1) slideIndex = slides.length;
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (let i = 0; i < thumbnails.length; i++) {
+        thumbnails[i].classList.remove("active");
+      }
+      slides[slideIndex - 1].style.display = "block";
+      thumbnails[slideIndex - 1].classList.add("active");
+    }
+  </script>
+</body>
+</html>
